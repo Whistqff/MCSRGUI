@@ -98,7 +98,7 @@ ButtonCloseMMC:
 WinKill, MultiMC
 Return
 ButtonCloseOBS:
-WinKill, %obsdir%
+WinKill, OBS
 return
 Nicege()
 {
