@@ -1,9 +1,8 @@
+from FormatLines import format_lines
 import shutil
 import glob
 
-# Edit this
-INST_FOLDER = "D:/MultiMC/instances"
-
+INST_FOLDER = format_lines(3)
 
 files = glob.glob(f'{INST_FOLDER}/*/.minecraft/saves/*')
 for f in files:
