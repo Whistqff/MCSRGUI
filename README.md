@@ -1,13 +1,12 @@
 # MCSRGUI
-An ahk script with a GUI to easily launch your tools aswell as your instances for minecraft speedrunning
+An ahk script with a GUI to easily launch your tools aswell as your instances for minecraft speedrunning.
 # Instructions
-Extract the zip
+- Extract the zip
 
-Open the ahk file as text and read the ahk comments
+- Open the settings.ahk file as text
 
-Also do note that you need to have python installed
+- Put the correct directories
 
-Configure the python scripts too
-
-Credit to specnr for the python scripts
-
+- Open mcsrgui.ahk then click the things you want to launch. You can also Launch all or EndAll
+# Planned
+- Dark Mode
