@@ -2,61 +2,70 @@
 #SingleInstance Force
 #Include settings.ahk
 
-
-Gui, Add, Button, x2 y-1 w100 h30 , Multi MC
-Gui, Add, Button, xp+100 y-1 w90 h30 , OBS
-Gui, Add, Button, x2 yp+30 w100 h30 , Reset Macro
-Gui, Add, Button, xp+100 y29 w90 h30 , Ninjabrain Bot
-Gui, Add, Button, x2 yp+30 w100 h30 , Delete Worlds
-Gui, Add, Button, xp+100 y59 w90 h30 , Launch Instance(s)
-Gui, Add, Button, x2 yp+30 w100 h30 , Launch Tracker
-Gui, Add, Button, x2 yp+30 w100 h30 , Open Config
-Gui, Add, Button, xp+100 y89 w90 h30 , Change Seed
-Gui, Add, Button, x197 y14 w100 h30 , Launch All
-Gui, Add, Button, x197 y44 w100 h30 , End All
-Gui, Add, Button, x197 y74 w100 h30 , Exit
-Gui, Add, Text, x2 y154 w300 h30 , Please press "Open Config" and configure the script if you haven't yet.
-Gui, Add, Text, x2 y190 w300 h30 , Use Shift+Click to Kill Programs.
-Gui, Show, h210 w307, SRSU
+Gui, Add, Button, x162 y109 w90 h30 , Multi MC
+Gui, Add, Button, x162 y19 w90 h30 , OBS
+Gui, Add, Button, x52 y19 w100 h30 , Reset Macro
+Gui, Add, Button, x162 y49 w90 h30 , Ninjabrain Bot
+Gui, Add, Button, x52 y49 w100 h30 , Delete Worlds
+Gui, Add, Button, x162 y79 w90 h30 , Launch Instance(s)
+Gui, Add, Button, x52 y79 w100 h30 , Launch Tracker
+Gui, Add, Button, x302 y79 w100 h30 , Open Config
+Gui, Add, Button, x52 y109 w100 h30 , Change Seed
+Gui, Add, Button, x302 y19 w100 h30 , Launch All
+Gui, Add, Button, x302 y49 w100 h30 , End All
+Gui, Add, Button, x302 y109 w100 h30 , Exit
+Gui, Add, Text, x112 y149 w130 h20 , Shift+Click to kill programs.
+Gui, Show, x488 y254 h181 w462, MCSRGUI
 Return
 
-
 ButtonOBS:
-    RunKill(obsDir, "OBS")
+Run, %obsDir%
 return
 ButtonMultiMC:
-    RunKill(multimcDir, "ahk_exe MultiMC.exe")
+Run, %multimcDir%
 return
 ButtonResetMacro:
-    RunKill(macroDir, "%resetdir% ahk_class AutoHotkey")
+Run, %resetDir%
 return
 ButtonNinjabrainBot:
-    RunKill(calcDir, "Ninjabrain Bot")
+Run, %calcDir%
 return
 
 ButtonDeleteWorlds:
-    Warning("remove", "world")
-    RunKill("%A_WorkingDir%\resources\DeleteWorlds.py,, Hide")
+Warning("remove", "world")
+Run, %A_WorkingDir%\resources\DeleteWorlds.py,, Hide
 return
 
 ButtonChangeSeed:
-    Warning("change", "seed")
-    RunKill("%A_WorkingDir%\resources\ChangeSeed.py,,")
+Warning("change", "seed")
+Run, %A_WorkingDir%\resources\ChangeSeed.py,, Hide
 return
 
 ButtonLaunchInstance(s):
-    RunKill("%A_WorkingDir%\resources\InstanceLaunch.py", "akh_group instances")
+Run, %A_WorkingDir%\resources\InstanceLaunch.py ;,, Hide
+return
+
++lbutton::
+WinGetActiveTitle, activewin
+If WinActive("MultiMC")
+   WinKill, %activewin%
+If WinActive("OBS")
+   WinKill, %activewin%
+If WinActive("Ninjabrain")
+   WinKill, %activewin%
+If WinActive("ahk_exe resettracker.exe")
+   WinKill, %activewin%
 return
 
 ButtonLaunchTracker:
-    RunKill(%trackerDir%)
-return
+Run, % trackerdir
+Return
 
 ButtonExit:
 ExitApp
 
 ButtonOpenConfig:
-    RunKill("notepad settings.ahk")
+Run, notepad settings.ahk
 Return
 
 ButtonLaunchAll:
@@ -68,16 +77,14 @@ If (launchCalc)
     run, % calcDir
 If (launchMacro)
     run, % resetDir
-If (launchTracker)
-    run, % trackerDir
 If (deleteWorld)
-    Run, %A_WorkingDir%\resources\DeleteWorlds.py,, ; Hide
+    Run, %A_WorkingDir%\resources\DeleteWorlds.py,, Hide
 If (launchInst)
-    Run, %A_WorkingDir%\resources\InstanceLaunch.py
-If (changeSeed)
-    Run, %A_WorkingDir%\resources\ChangeSeed.py,, ;Hide
+    Run, %A_WorkingDir%\resources\InstanceLaunch.py ;,, Hide
 WinWait, Minecraft
 WinKill, ahk_exe C:\Windows\py.exe
+If (launchtracker)
+    Run, % trackerDir
 return
 
 ButtonEndAll:
@@ -102,19 +109,9 @@ return
 GuiClose:
 ExitApp
 
+global instanceFolder := instanceFolder
 Warning(action, element) {
-    global instanceFolder
     MsgBox, 4, , This will %action% every %element% in %instanceFolder%.`nDo you wish to continue?
     IfMsgBox No
         return
-}
-
-RunKill(runCommand= "", killCommand= "") {
-    DetectHiddenWindows, On
-    if GetKeyState("Shift")
-        if killCommand
-            WinKill, %killCommand%
-    else
-        if runCommand
-            Run, %runCommand%
 }
