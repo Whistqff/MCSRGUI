@@ -13,7 +13,7 @@ trackerDir := "" ; Replace this with where your reset racker is.
 launchMMC := True ; Set to False if you dont want to launch mmc when you press "StartupAll".
 launchCalc := True ; Set to False if you dont want your calculator to launch when you press "StartupAll"
 launchMacro := True ; Set to False if you dont want your macro launching up if you press StartupAll
-deleteWorld := True ; Set to False if you dont want your speedrunning worlds to be deleted if you press "StartupAll". (By default it doesnt delete practice worlds"
+deleteWorld := True ; Set to False if you dont want your speedrunning worlds to be deleted if you press "StartupAll". (By default it doesnt delete practice worlds)
 launchInst := True ; Set to False if you dont want your instances to launch if you press the "StartupAll" button.
 launchtracker := True ; Same as the above but launches tracker
 
