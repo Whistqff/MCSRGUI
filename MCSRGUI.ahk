@@ -1,6 +1,7 @@
 #NoEnv
 #SingleInstance Force
 #Include settings.ahk
+DetectHiddenWindows, On
 
 Gui, Add, Button, x162 y109 w90 h30 , Multi MC
 Gui, Add, Button, x162 y19 w90 h30 , OBS
@@ -21,12 +22,18 @@ Return
 ButtonOBS:
 Run, %obsDir%
 return
+
 ButtonMultiMC:
 Run, %multimcDir%
 return
+
 ButtonResetMacro:
-Run, %resetDir%
+IfWinNotExist, %macroDir% ahk_class AutoHotkey
+   Run, %macroDir%
+IfWinExist, %macroDir% ahk_class AutoHotkey
+   WinKill, %macroDir%
 return
+
 ButtonNinjabrainBot:
 Run, %calcDir%
 return
@@ -42,7 +49,7 @@ Run, %A_WorkingDir%\resources\ChangeSeed.py,, Hide
 return
 
 ButtonLaunchInstance(s):
-Run, %A_WorkingDir%\resources\InstanceLaunch.py,, Hide
+Run, %A_WorkingDir%\resources\InstanceLaunch.py ;,, Hide
 return
 
 +lbutton::
@@ -58,7 +65,7 @@ If WinActive("ahk_exe resettracker.exe")
 return
 
 ButtonLaunchTracker:
-Run, % trackerdir
+Run, %trackerDir%
 Return
 
 ButtonExit:
@@ -76,7 +83,7 @@ If (launchMMC)
 If (launchCalc)
     run, % calcDir
 If (launchMacro)
-    run, % resetDir
+    run, % macroDir
 If (deleteWorld)
     Run, %A_WorkingDir%\resources\DeleteWorlds.py,, Hide
 If (launchInst)
@@ -100,7 +107,7 @@ if (killCalc)
     WinKill, Ninjabrain Bot
 if (killMacro) {
     DetectHiddenWindows, On 
-    WinKill, %resetdir% ahk_class AutoHotkey
+    WinKill, %macroDir% ahk_class AutoHotkey
 }
 if (killtracker)
    WinKill, %trackerDir%
