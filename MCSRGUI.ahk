@@ -42,7 +42,7 @@ Run, %A_WorkingDir%\resources\ChangeSeed.py,, Hide
 return
 
 ButtonLaunchInstance(s):
-Run, %A_WorkingDir%\resources\InstanceLaunch.py ;,, Hide
+Run, %A_WorkingDir%\resources\InstanceLaunch.py,, Hide
 return
 
 +lbutton::
