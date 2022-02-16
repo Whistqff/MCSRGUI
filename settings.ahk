@@ -16,6 +16,7 @@ launchMacro := True ; Set to False if you dont want your macro launching up if y
 deleteWorld := True ; Set to False if you dont want your speedrunning worlds to be deleted if you press "StartupAll". (By default it doesnt delete practice worlds)
 launchInst := True ; Set to False if you dont want your instances to launch if you press the "StartupAll" button.
 launchtracker := True ; Same as the above but launches tracker
+changeSeed := True ; Set to False if you dont want your seeds to be changed if you press "StartupAll".
 
 ; EndAllConfigs
 killInst := True ; Set to False if you dont want your instance to be killed when you press "EndAll"
@@ -24,3 +25,6 @@ killCalc := True ; Set to False if you dont want your calc to be killed when you
 killTracker := True ; Set to False if you dont want your tracker to be killed when you press "EndAll"
 killMMC := True ; Set to False if you dont want mmc to be killed when you press "EndAll"
 killMacro := True ; same as the above but kills macro
+
+; Appearance
+darkMode := True ; Set to false if you don't want to use darkmode
