@@ -8,6 +8,7 @@ obsDir := "" ; Replace this with where your OBS directory is located. (Shortcut 
 calcDir := "" ; Replace this with where your ninja bot is located. 
 macroDir := "" ; Replace this with where your reset macro is located
 trackerDir := "" ; Replace this with where your reset racker is.
+killinstshift := True ; Set to no if you don't want to kill instances when you press F12
 
 ; LaunchAllConfigs
 launchMMC := True ; Set to False if you dont want to launch mmc when you press "StartupAll".
