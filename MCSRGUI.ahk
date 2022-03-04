@@ -110,9 +110,8 @@ ButtonEndAll:
     Pressed("EndAll")
     if (killObs)
         WinKill, OBS
-    if (killInst) {
+    if (killInst)
         RunKill(, "ahk_group instances")
-    }
     if (killMMC)
         WinKill, ahk_exe UltimMC.exe
     if (killCalc)
