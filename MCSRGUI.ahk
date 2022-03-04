@@ -113,7 +113,7 @@ ButtonEndAll:
     if (killInst)
         RunKill(, "ahk_group instances")
     if (killMMC)
-        WinKill, ahk_exe UltimMC.exe
+        WinKill, ahk_exe MultiMC.exe
     if (killCalc)
         WinKill, Ninjabrain Bot
     if (killMacro)
