@@ -2,25 +2,27 @@
 #SingleInstance Force
 #Include settings.ahk
 DetectHiddenWindows, On
+global darkMode := darkMode
 
-if (darkMode) {
+If (darkMode) {
     Gui, Color, 2c2c2c
-    Gui, Add, Picture, x162 y109 w90 h30 gButtonDeleteWorlds, %A_WorkingDir%\Gui\DeleteWorlds.png
-    Gui, Add, Picture, x162 y19 w90 h30 gButtonOBS, %A_WorkingDir%\Gui\OBS.png
-    Gui, Add, Picture, x52 y19 w90 h30 gButtonMultiMC, %A_WorkingDir%\Gui\MultiMC.png
-    Gui, Add, Picture, x162 y49 w90 h30 gButtonNinjabrainBot, %A_WorkingDir%\Gui\NinBot.png
-    Gui, Add, Picture, x52 y49 w90 h30 gButtonToggleMacro, %A_WorkingDir%\Gui\Macro.png
-    Gui, Add, Picture, x162 y79 w90 h30 gButtonLaunchInstance(s), %A_WorkingDir%\Gui\InstanceLaunch.png
-    Gui, Add, Picture, x52 y79 w90 h30 gButtonLaunchTracker, %A_WorkingDir%\Gui\Tracker.png
-    Gui, Add, Picture, x272 y79 w90 h30 gButtonOpenConfig, %A_WorkingDir%\Gui\Config.png
-    Gui, Add, Picture, x52 y109 w90 h30 gButtonChangeSeed, %A_WorkingDir%\Gui\Seed.png
-    Gui, Add, Picture, x272 y19 w90 h30 gButtonLaunchAll, %A_WorkingDir%\Gui\LaunchAll.png
-    Gui, Add, Picture, x272 y49 w90 h30 gButtonEndAll, %A_WorkingDir%\Gui\EndAll.png
-    Gui, Add, Picture, x272 y109 w90 h30 gButtonExit, %A_WorkingDir%\Gui\Exit.png
+    Gui, Add, Picture, x162 y109 w90 h30 vDeleteWorlds gButtonDeleteWorlds, %A_ScriptDir%\Gui\DeleteWorlds.png
+    Gui, Add, Picture, x162 y19 w90 h30 vOBS gButtonOBS, %A_ScriptDir%\Gui\OBS.png
+    Gui, Add, Picture, x52 y19 w90 h30 vMultiMC gButtonMultiMC, %A_ScriptDir%\Gui\MultiMC.png
+    Gui, Add, Picture, x162 y49 w90 h30 vNinBot gButtonNinjabrainBot, %A_ScriptDir%\Gui\NinBot.png
+    Gui, Add, Picture, x52 y49 w90 h30 vMacro gButtonToggleMacro, %A_ScriptDir%\Gui\Macro.png
+    Gui, Add, Picture, x162 y79 w90 h30 vInstance gButtonLaunchInstance(s), %A_ScriptDir%\Gui\Instance.png
+    Gui, Add, Picture, x52 y79 w90 h30 vTracker gButtonLaunchTracker, %A_ScriptDir%\Gui\Tracker.png
+    Gui, Add, Picture, x272 y79 w90 h30 vConfig gButtonOpenConfig, %A_ScriptDir%\Gui\Config.png
+    Gui, Add, Picture, x52 y109 w90 h30 vSeed gButtonChangeSeed, %A_ScriptDir%\Gui\Seed.png
+    Gui, Add, Picture, x272 y19 w90 h30 vLaunchAll gButtonLaunchAll, %A_ScriptDir%\Gui\LaunchAll.png
+    Gui, Add, Picture, x272 y49 w90 h30 vEndAll gButtonEndAll, %A_ScriptDir%\Gui\EndAll.png
+    Gui, Add, Picture, x272 y109 w90 h30 vExit gButtonExit, %A_ScriptDir%\Gui\Exit.png
     Gui, Show, x449 y289 h163 w427, MCSRGUI
     Return
 }
-Else
+
+Else {
     Gui, Add, Button, x162 y109 w90 h30 , Delete Worlds
     Gui, Add, Button, x162 y19 w90 h30 , OBS
     Gui, Add, Button, x52 y19 w90 h30 , MultiMC
@@ -34,115 +36,133 @@ Else
     Gui, Add, Button, x272 y49 w90 h30 , End All
     Gui, Add, Button, x272 y109 w90 h30 , Exit
     Gui, Show, x449 y289 h163 w427, MCSRGUI
+}
 Return
 
 ButtonOBS:
-Run, %obsDir%
+    Pressed("OBS")
+    RunKill(obsDir, "OBS")
 return
 
 ButtonMultiMC:
-Run, %multimcDir%
+    Pressed("MultiMC")
+    RunKill(multimcDir, "UltimMC")
 return
 
 ButtonToggleMacro:
-IfWinNotExist, %macroDir% ahk_class AutoHotkey
-   Run, %macroDir%
-IfWinExist, %macroDir% ahk_class AutoHotkey
-   WinKill, %macroDir%
-return
-
-ButtonNinjabrainBot:
-Run, %calcDir%
-return
-
-ButtonDeleteWorlds:
-Warning("remove", "world")
-Run, %A_WorkingDir%\resources\DeleteWorlds.py,, Hide
-return
-
-ButtonChangeSeed:
-Warning("change", "seed")
-Run, %A_WorkingDir%\resources\ChangeSeed.py,, Hide
+    Pressed("Macro")
+    RunKill(macroDir, macroDir . " ahk_class AutoHotkey")
 return
 
 ButtonLaunchInstance(s):
-Run, %A_WorkingDir%\resources\InstanceLaunch.py,, Hide
-return
-
-F12::
-WinGetActiveTitle, activewin
-If WinActive("MultiMC")
-   WinKill, %activewin%
-If WinActive("OBS")
-   WinKill, %activewin%
-If WinActive("Ninjabrain")
-   WinKill, %activewin%
-If WinActive("ahk_exe resettracker.exe")
-   WinKill, %activewin%
-If (killinstshift)
-   If WinActive("Minecraft")
-      GroupAdd instances, Minecraft
-      WinKill,ahk_group instances
-return
+    Pressed("Instance")
+    RunKill(A_ScriptDir . "\resources\InstanceLaunch.py", "ahk_group instances")
+Return
 
 ButtonLaunchTracker:
-Run, %trackerDir%
+    Pressed("Tracker")
+    RunKill(trackerDir, trackerDir)
 Return
 
-ButtonExit:
-ExitApp
+ButtonNinjabrainBot:
+    Pressed("NinBot")
+    RunKill(calcDir, "NinjaBrain")
+return
 
-ButtonOpenConfig:
-Run, notepad settings.ahk
-Return
+ButtonDeleteWorlds:
+    Pressed("DeleteWorlds")
+    PythonRun(A_ScriptDir . "\resources\DeleteWorlds.py", "delete", "world existing")
+return
+
+ButtonChangeSeed:
+    Pressed("Seed")
+    PythonRun(A_ScriptDir . "\resources\ChangeSeed.py", "change", "seed")
+return
 
 ButtonLaunchAll:
-If (launchObs)
-    run, % obsDir
-If (launchMMC)
-    run, % multimcDir
-If (launchCalc)
-    run, % calcDir
-If (launchMacro)
-    run, % macroDir
-If (deleteWorld)
-    Run, %A_WorkingDir%\resources\DeleteWorlds.py,, Hide
-If (launchInst) {
-    Run, %A_WorkingDir%\resources\InstanceLaunch.py,, Hide
-WinWait, Minecraft
-WinKill, ahk_exe C:\Windows\py.exe
-}
-If (launchtracker)
-    Run, % trackerDir
-If (changeSeed)
-    Run, %A_WorkingDir%\resources\ChangeSeed.py,, Hide
+    Pressed("LaunchAll")
+    If (launchObs)
+        RunKill(obsDir)
+    If (launchMMC)
+        RunKill(multimcDir)
+    If (launchCalc)
+        RunKill(calcDir)
+    If (launchMacro)
+        RunKill(macroDir)
+    If (launchtracker)
+        RunKill(trackerDir)
+    If (deleteWorld)
+        PythonRun(A_ScriptDir . "\resources\DeleteWorlds.py",,, False)
+    If (launchInst) 
+        PythonRun(A_ScriptDir . "\resources\InstanceLaunch.py",,, False)
+    If (SeedLaunch)
+        PythonRun(A_ScriptDir . "\resources\ChangeSeed.py",,, False)
 return
+
+ButtonOpenConfig:
+    Pressed("Config")
+    RunWait, notepad settings.ahk
+    WinWaitClose, settings.ahk - notepad
+    Reload
+Return
 
 ButtonEndAll:
-if (killObs)
-    WinKill, OBS
-if (killInst) {
-    GroupAdd instances, Minecraft
-    WinKill, ahk_group instances
-}
-if (killMMC)
-    WinKill, ahk_exe MultiMC.exe
-if (killCalc)
-    WinKill, Ninjabrain Bot
-if (killMacro) {
-    DetectHiddenWindows, On 
-    WinKill, %macroDir% ahk_class AutoHotkey
-}
-if (killtracker)
-   WinKill, %trackerDir%
+    Pressed("EndAll")
+    if (killObs)
+        WinKill, OBS
+    if (killInst) {
+        RunKill(, "ahk_group instances")
+    }
+    if (killMMC)
+        WinKill, ahk_exe UltimMC.exe
+    if (killCalc)
+        WinKill, Ninjabrain Bot
+    if (killMacro) {
+        WinKill, % macroDir . "ahk_class AutoHotkey"
+    }
+    if (killtracker)
+        WinKill, % trackerDir
 return
 
-GuiClose:
+ButtonExit:
+    Pressed("Exit")
+ExitApp
+
+GuiClose: 
 ExitApp
 
 global instanceFolder := instanceFolder
-Warning(action, element) {
-    MsgBox, 4, , This will %action% every %element% in %instanceFolder%.`nDo you wish to continue?
-    IfMsgBox No
-        return
+
+RunKill(runCommand= "", killCommand= "") {
+    if GetKeyState("Shift")
+        If (killCommand = "ahk_group instances") {
+            GroupAdd, instances, Minecraft
+            WinKill, ahk_group instances
+        }
+        Else
+            WinKill, % killCommand
+    Else
+        Run, % runCommand
+Return
+}
+
+PythonRun(File= "", Action= "", Element= "", WarnBox= "True") {
+    If (WarnBox) {
+        MsgBox, 4,, % "This will " action " every " element " in " instanceFolder "`nDo you wish to continue?"
+            IfMsgBox, No
+                return
+            Else
+                Run, % File,, Hide
+    }
+    Else
+        Run, % File,, Hide
+}
+
+Pressed(Control_ID) {
+    If (darkMode) {
+        GuiControl,, % Control_ID, % A_ScriptDir "/GUI/" Control_ID "Pressed.png"
+        Sleep, 100
+        GuiControl,, % Control_ID, % A_ScriptDir "/GUI/" Control_ID ".png"
+    }
+Return
 }
