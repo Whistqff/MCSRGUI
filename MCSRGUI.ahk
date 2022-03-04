@@ -46,7 +46,7 @@ return
 
 ButtonMultiMC:
     Pressed("MultiMC")
-    RunKill(multimcDir, "UltimMC")
+    RunKill(multimcDir, "MultiMC")
 return
 
 ButtonToggleMacro:
@@ -117,9 +117,8 @@ ButtonEndAll:
         WinKill, ahk_exe UltimMC.exe
     if (killCalc)
         WinKill, Ninjabrain Bot
-    if (killMacro) {
+    if (killMacro)
         WinKill, % macroDir . "ahk_class AutoHotkey"
-    }
     if (killtracker)
         WinKill, % trackerDir
 return
