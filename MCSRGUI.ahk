@@ -6,18 +6,18 @@ global darkMode := darkMode
 
 If (darkMode) {
     Gui, Color, 2c2c2c
-    Gui, Add, Picture, x162 y109 w90 h30 vDeleteWorlds gButtonDeleteWorlds, %A_ScriptDir%\Gui\DeleteWorlds.png
-    Gui, Add, Picture, x162 y19 w90 h30 vOBS gButtonOBS, %A_ScriptDir%\Gui\OBS.png
-    Gui, Add, Picture, x52 y19 w90 h30 vMultiMC gButtonMultiMC, %A_ScriptDir%\Gui\MultiMC.png
-    Gui, Add, Picture, x162 y49 w90 h30 vNinBot gButtonNinjabrainBot, %A_ScriptDir%\Gui\NinBot.png
-    Gui, Add, Picture, x52 y49 w90 h30 vMacro gButtonToggleMacro, %A_ScriptDir%\Gui\Macro.png
-    Gui, Add, Picture, x162 y79 w90 h30 vInstance gButtonLaunchInstance(s), %A_ScriptDir%\Gui\Instance.png
-    Gui, Add, Picture, x52 y79 w90 h30 vTracker gButtonLaunchTracker, %A_ScriptDir%\Gui\Tracker.png
-    Gui, Add, Picture, x272 y79 w90 h30 vConfig gButtonOpenConfig, %A_ScriptDir%\Gui\Config.png
-    Gui, Add, Picture, x52 y109 w90 h30 vSeed gButtonChangeSeed, %A_ScriptDir%\Gui\Seed.png
-    Gui, Add, Picture, x272 y19 w90 h30 vLaunchAll gButtonLaunchAll, %A_ScriptDir%\Gui\LaunchAll.png
-    Gui, Add, Picture, x272 y49 w90 h30 vEndAll gButtonEndAll, %A_ScriptDir%\Gui\EndAll.png
-    Gui, Add, Picture, x272 y109 w90 h30 vExit gButtonExit, %A_ScriptDir%\Gui\Exit.png
+    Gui, Add, Picture, x162 y109 w90 h30 vDeleteWorlds gButtonDeleteWorlds, % A_ScriptDir "/GUI/DeleteWorlds.png"
+    Gui, Add, Picture, x162 y19 w90 h30 vOBS gButtonOBS, % A_ScriptDir "/GUI/OBS.png"
+    Gui, Add, Picture, x52 y19 w90 h30 vMultiMC gButtonMultiMC, % A_ScriptDir "/GUI/MultiMC.png"
+    Gui, Add, Picture, x162 y49 w90 h30 vNinBot gButtonNinjabrainBot, % A_ScriptDir "/GUI/NinBot.png"
+    Gui, Add, Picture, x52 y49 w90 h30 vMacro gButtonToggleMacro, % A_ScriptDir "/GUI/Macro.png"
+    Gui, Add, Picture, x162 y79 w90 h30 vInstance gButtonLaunchInstance(s), % A_ScriptDir "/GUI/Instance.png"
+    Gui, Add, Picture, x52 y79 w90 h30 vTracker gButtonLaunchTracker, % A_ScriptDir "/GUI/Tracker.png"
+    Gui, Add, Picture, x272 y79 w90 h30 vConfig gButtonOpenConfig, % A_ScriptDir "/GUI/Config.png"
+    Gui, Add, Picture, x52 y109 w90 h30 vSeed gButtonChangeSeed, % A_ScriptDir "/GUI/Seed.png"
+    Gui, Add, Picture, x272 y19 w90 h30 vLaunchAll gButtonLaunchAll, % A_ScriptDir "/GUI/LaunchAll.png"
+    Gui, Add, Picture, x272 y49 w90 h30 vEndAll gButtonEndAll, % A_ScriptDir "/GUI/EndAll.png"
+    Gui, Add, Picture, x272 y109 w90 h30 vExit gButtonExit, % A_ScriptDir "/GUI/Exit.png"
     Gui, Show, x449 y289 h163 w427, MCSRGUI
     Return
 }
@@ -56,7 +56,7 @@ return
 
 ButtonLaunchInstance(s):
     Pressed("Instance")
-    RunKill(A_ScriptDir . "\resources\InstanceLaunch.py", "ahk_group instances")
+    PythonRun(A_ScriptDir . "\resources\InstanceLaunch.py",,, False)
 Return
 
 ButtonLaunchTracker:
@@ -109,17 +109,17 @@ Return
 ButtonEndAll:
     Pressed("EndAll")
     if (killObs)
-        WinKill, OBS
+        Kill("OBS")
     if (killInst)
-        RunKill(, "ahk_group instances")
+        Kill("ahk_group instances")
     if (killMMC)
-        WinKill, ahk_exe MultiMC.exe
+        Kill("ahk_exe MultiMC.exe")
     if (killCalc)
-        WinKill, Ninjabrain Bot
+        Kill("Ninjabot")
     if (killMacro)
-        WinKill, % macroDir . "ahk_class AutoHotkey"
+        Kill(macroDir . " ahk_class AutoHotkey")
     if (killtracker)
-        WinKill, % trackerDir
+        Kill(trackerDir)
 return
 
 ButtonExit:
@@ -133,12 +133,7 @@ global instanceFolder := instanceFolder
 
 RunKill(runCommand= "", killCommand= "") {
     if GetKeyState("Shift")
-        If (killCommand = "ahk_group instances") {
-            GroupAdd, instances, Minecraft
-            WinKill, ahk_group instances
-        }
-        Else
-            WinKill, % killCommand
+        WinKill, % killCommand
     Else
         Run, % runCommand
 Return
@@ -154,13 +149,21 @@ PythonRun(File= "", Action= "", Element= "", WarnBox= "True") {
     }
     Else
         Run, % File,, Hide
+Return
 }
 
 Pressed(Control_ID) {
     If (darkMode) {
         GuiControl,, % Control_ID, % A_ScriptDir "/GUI/" Control_ID "Pressed.png"
-        Sleep, 100
+        Sleep, 40
         GuiControl,, % Control_ID, % A_ScriptDir "/GUI/" Control_ID ".png"
     }
+Return
+}
+
+Kill(ProcessTitle= "") {
+    WinKill, % ProcessTitle
+    GroupAdd, instances, Minecraft
+    WinKill, ahk_group instances
 Return
 }
