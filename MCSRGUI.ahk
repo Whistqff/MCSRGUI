@@ -163,7 +163,8 @@ Return
 
 Kill(ProcessTitle= "") {
     WinKill, % ProcessTitle
-    GroupAdd, instances, Minecraft
-    WinKill, ahk_group instances
+    If (killInst)
+        GroupAdd, instances, Minecraft
+        WinKill, ahk_group instances
 Return
 }
