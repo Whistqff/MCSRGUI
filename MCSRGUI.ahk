@@ -47,7 +47,7 @@ return
 
 ButtonMultiMC:
     Pressed("MultiMC")
-    RunKill(multimcDir, "MultimMC")
+    RunKill(multimcDir, "ahk_exe MultimMC.exe")
 return
 
 ButtonToggleMacro:
@@ -167,7 +167,7 @@ Return
 
 ; Kills the process specified(and if KillInst is set to true it also kills all the instances)
 Kill(ProcessTitle= "") {
-    WinKill, % ProcessTitle
+    WinKill, %ProcessTitle
     If (killInst)
         GroupAdd, instances, Minecraft
         WinKill, ahk_group instances
