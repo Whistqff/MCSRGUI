@@ -1,9 +1,9 @@
 #NoEnv
 #SingleInstance Force
 #Include settings.ahk
-FileRemoveDir, % A_ScriptDir . "/resources/__pycache__"
 global instanceFolder := instanceFolder
 global darkMode := darkMode
+FileRemoveDir, % A_ScriptDir . "/resources/__pycache__", 1
 DetectHiddenWindows, On
 
 If (darkMode) {
