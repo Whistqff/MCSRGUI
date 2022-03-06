@@ -3,6 +3,7 @@
 #Include settings.ahk
 DetectHiddenWindows, On
 global darkMode := darkMode
+FileRemoveDir, % A_ScriptDir "/resources/__pycache__"
 
 If (darkMode) {
     Gui, Color, 2c2c2c
@@ -46,7 +47,7 @@ return
 
 ButtonMultiMC:
     Pressed("MultiMC")
-    RunKill(multimcDir, "MultiMC")
+    RunKill(multimcDir, "MultimMC")
 return
 
 ButtonToggleMacro:
@@ -131,6 +132,7 @@ ExitApp
 
 global instanceFolder := instanceFolder
 
+; If the user has shift holded, will kill the process. Otherwise it just runs it.
 RunKill(runCommand= "", killCommand= "") {
     if GetKeyState("Shift")
         WinKill, % killCommand
@@ -139,6 +141,7 @@ RunKill(runCommand= "", killCommand= "") {
 Return
 }
 
+; Warns the user, then if pressed yes, will run the file. (Will launch without warning if the function got called false)
 PythonRun(File= "", Action= "", Element= "", WarnBox= "True") {
     If (WarnBox) {
         MsgBox, 4,, % "This will " action " every " element " in " instanceFolder "`nDo you wish to continue?"
@@ -152,6 +155,7 @@ PythonRun(File= "", Action= "", Element= "", WarnBox= "True") {
 Return
 }
 
+; Changes the state of a button for 40ms to be on the "pressed" state
 Pressed(Control_ID) {
     If (darkMode) {
         GuiControl,, % Control_ID, % A_ScriptDir "/GUI/" Control_ID "Pressed.png"
@@ -161,6 +165,7 @@ Pressed(Control_ID) {
 Return
 }
 
+; Kills the process specified(and if KillInst is set to true it also kills all the instances)
 Kill(ProcessTitle= "") {
     WinKill, % ProcessTitle
     If (killInst)
