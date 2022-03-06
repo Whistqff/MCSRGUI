@@ -1,9 +1,10 @@
 #NoEnv
 #SingleInstance Force
 #Include settings.ahk
-DetectHiddenWindows, On
-global darkMode := darkMode
 FileRemoveDir, % A_ScriptDir . "/resources/__pycache__"
+global instanceFolder := instanceFolder
+global darkMode := darkMode
+DetectHiddenWindows, On
 
 If (darkMode) {
     Gui, Color, 2c2c2c
@@ -129,8 +130,6 @@ ExitApp
 
 GuiClose: 
 ExitApp
-
-global instanceFolder := instanceFolder
 
 ; If the user has shift holded, will kill the process. Otherwise it just runs it.
 RunKill(runCommand= "", killCommand= "") {
