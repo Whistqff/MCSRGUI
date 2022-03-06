@@ -3,22 +3,22 @@
 #Include settings.ahk
 DetectHiddenWindows, On
 global darkMode := darkMode
-FileRemoveDir, % A_ScriptDir "/resources/__pycache__"
+FileRemoveDir, % A_ScriptDir . "/resources/__pycache__"
 
 If (darkMode) {
     Gui, Color, 2c2c2c
-    Gui, Add, Picture, x162 y109 w90 h30 vDeleteWorlds gButtonDeleteWorlds, % A_ScriptDir "/GUI/DeleteWorlds.png"
-    Gui, Add, Picture, x162 y19 w90 h30 vOBS gButtonOBS, % A_ScriptDir "/GUI/OBS.png"
-    Gui, Add, Picture, x52 y19 w90 h30 vMultiMC gButtonMultiMC, % A_ScriptDir "/GUI/MultiMC.png"
-    Gui, Add, Picture, x162 y49 w90 h30 vNinBot gButtonNinjabrainBot, % A_ScriptDir "/GUI/NinBot.png"
-    Gui, Add, Picture, x52 y49 w90 h30 vMacro gButtonToggleMacro, % A_ScriptDir "/GUI/Macro.png"
-    Gui, Add, Picture, x162 y79 w90 h30 vInstance gButtonLaunchInstance(s), % A_ScriptDir "/GUI/Instance.png"
-    Gui, Add, Picture, x52 y79 w90 h30 vTracker gButtonLaunchTracker, % A_ScriptDir "/GUI/Tracker.png"
-    Gui, Add, Picture, x272 y79 w90 h30 vConfig gButtonOpenConfig, % A_ScriptDir "/GUI/Config.png"
-    Gui, Add, Picture, x52 y109 w90 h30 vSeed gButtonChangeSeed, % A_ScriptDir "/GUI/Seed.png"
-    Gui, Add, Picture, x272 y19 w90 h30 vLaunchAll gButtonLaunchAll, % A_ScriptDir "/GUI/LaunchAll.png"
-    Gui, Add, Picture, x272 y49 w90 h30 vEndAll gButtonEndAll, % A_ScriptDir "/GUI/EndAll.png"
-    Gui, Add, Picture, x272 y109 w90 h30 vExit gButtonExit, % A_ScriptDir "/GUI/Exit.png"
+    Gui, Add, Picture, x162 y109 w90 h30 vDeleteWorlds gButtonDeleteWorlds, % A_ScriptDir . "/GUI/DeleteWorlds.png"
+    Gui, Add, Picture, x162 y19 w90 h30 vOBS gButtonOBS, % A_ScriptDir . "/GUI/OBS.png"
+    Gui, Add, Picture, x52 y19 w90 h30 vMultiMC gButtonMultiMC, % A_ScriptDir . "/GUI/MultiMC.png"
+    Gui, Add, Picture, x162 y49 w90 h30 vNinBot gButtonNinjabrainBot, % A_ScriptDir . "/GUI/NinBot.png"
+    Gui, Add, Picture, x52 y49 w90 h30 vMacro gButtonToggleMacro, % A_ScriptDir . "/GUI/Macro.png"
+    Gui, Add, Picture, x162 y79 w90 h30 vInstance gButtonLaunchInstance(s), % A_ScriptDir . "/GUI/Instance.png"
+    Gui, Add, Picture, x52 y79 w90 h30 vTracker gButtonLaunchTracker, % A_ScriptDir . "/GUI/Tracker.png"
+    Gui, Add, Picture, x272 y79 w90 h30 vConfig gButtonOpenConfig, % A_ScriptDir . "/GUI/Config.png"
+    Gui, Add, Picture, x52 y109 w90 h30 vSeed gButtonChangeSeed, % A_ScriptDir . "/GUI/Seed.png"
+    Gui, Add, Picture, x272 y19 w90 h30 vLaunchAll gButtonLaunchAll, % A_ScriptDir . "/GUI/LaunchAll.png"
+    Gui, Add, Picture, x272 y49 w90 h30 vEndAll gButtonEndAll, % A_ScriptDir . "/GUI/EndAll.png"
+    Gui, Add, Picture, x272 y109 w90 h30 vExit gButtonExit, % A_ScriptDir . "/GUI/Exit.png"
     Gui, Show, x449 y289 h163 w427, MCSRGUI
     Return
 }
@@ -167,7 +167,7 @@ Return
 
 ; Kills the process specified(and if KillInst is set to true it also kills all the instances)
 Kill(ProcessTitle= "") {
-    WinKill, %ProcessTitle
+    WinKill, % ProcessTitle
     If (killInst)
         GroupAdd, instances, Minecraft
         WinKill, ahk_group instances
