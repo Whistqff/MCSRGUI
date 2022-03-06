@@ -4,6 +4,7 @@ multimcDir := "" ; Change this to match your MultiMC.exe location
 instanceFolder := "" ; Where the deletion of worlds and changing seeds happen. Change to match your instanceFolder.
 seed := "" ; Leave empty if you don't want to use a seed
 
+; Directories
 obsDir := "" ; Replace this with where your OBS directory is located. (Shortcut recommended)
 calcDir := "" ; Replace this with where your ninja bot is located. 
 macroDir := "" ; Replace this with where your reset macro is located
