@@ -3,14 +3,12 @@ instanceCount := ""
 multimcDir := "" ; Change this to match your MultiMC.exe location
 instanceFolder := "D:/MCSR/MultiMC/instances" ; Where the deletion of worlds and changing seeds happen. Change to match your instanceFolder.
 seed := "" ; Leave empty if you don't want to use a seed
-oldworldsDir := "D:/OldWorlds" ; Where worlds will be moved(not a feature yet but soon)
 
 ; Directories
 obsDir := "" ; Replace this with where your OBS directory is located. (Shortcut recommended)
 calcDir := "" ; Replace this with where your ninja bot is located. 
 macroDir := "" ; Replace this with where your reset macro is located
 trackerDir := "" ; Replace this with where your reset tracker is.
-moveorDel := 0 ; set to 1 if you wanna move worlds instead of deleting them
 
 ; LaunchAllConfigs
 launchMMC := True ; Set to False if you don't want to launch mmc when you press "StartupAll".
